@@ -36,11 +36,13 @@ class UsersRepository extends Repository
     {
         $data = $request->all();
 
-        if(isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
+        if ($data['password'] === null) {
+            unset($data['password']);
+            unset($data['password_confirmation']);
         }
 
         $user->fill($data)->update();
+
         $user->roles()->sync([$data['role_id']]);
 
         return ['status' => 'Пользователь изменен'];

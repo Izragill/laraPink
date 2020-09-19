@@ -85,6 +85,11 @@ class User extends Authenticatable
         return false;
     }
 
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *
